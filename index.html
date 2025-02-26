@@ -11,7 +11,15 @@
 </body>
 
 <script>
-    if (window.Telegram == window.Telegram.WebApp) 
+    if (window.Telegram && window.Telegram.WebApp) {
+
+        window.Telegram.WebApp.ready();
+
+        const user = window.Telegram.WebApp.initDataUnsafe;
+        const TelegramUserId = user.user.id;
+
+        document.getElementById("userId").textContent = `Ваш telegram ID : ${TelegramUserId}`
+    }
 </script>
 
 </html>
