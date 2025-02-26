@@ -19,7 +19,10 @@
         const user = window.Telegram.WebApp.initDataUnsafe;
         const TelegramUserId = user.user.id;
 
-        document.getElementById("userId").textContent = `Ваш telegram ID : ${TelegramUserId}`
+        function userIdP() {
+            document.getElementById("userId").textContent = `Ваш telegram ID : ${TelegramUserId}`
+        }
+        setTimeout (userIdP, 3000);
     }
 </script>
 
