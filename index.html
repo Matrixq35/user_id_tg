@@ -19,11 +19,44 @@
         const user = window.Telegram.WebApp.initDataUnsafe;
         const TelegramUserId = user.user.id;
 
+        saveUserId(telegramUserId);
+        
+        getUserId(telegramUserId);
+
         function userIdP() {
             document.getElementById("userId").textContent = `Ваш telegram ID : ${TelegramUserId}`
         }
         setTimeout (userIdP, 3000);
     }
+
+    async function saveUserId(TelegramUserId) {
+        try {
+            const response = await fetch('http://localhost:3000/saveUser' , {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ telegramUserId })
+            })
+        
+
+        const data = await response.JSON();
+        console.log('Ответ сервера:', data);
+    };}
+
+     async function getUserId(telegramUserId) {
+            try {
+                const response = await fetch(`http://localhost:3000/getUser/${telegramUserId}`);
+                if (!response.ok) {
+                    throw new Error('Пользователь не найден');
+                }
+
+                const data = await response.json();
+                document.getElementById('userId').textContent = `Ваш идентификатор: ${data.telegramUserId}`;
+            } catch (error) {
+                console.error(error);
+                document.getElementById('userId').textContent = 'Ошибка при загрузке идентификатора';
+            }
+        }
+
 </script>
 
 </html>
